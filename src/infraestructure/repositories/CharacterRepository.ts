@@ -30,20 +30,23 @@ export class CharacterRepositoryImplementation {
     return result.Items as Character[];
   }
 
-  async createCharacter(character: Character): Promise<Character> {
+  async createCharacter(
+    character: Partial<Character>
+  ): Promise<Character> {
     //search if character name already exists
     const result = await this.docClient
       .scan({
         TableName: this.tableName,
-        FilterExpression: "name = :name",
+        FilterExpression: "idSwapi = :idSwapi",
         ExpressionAttributeValues: {
-          ":name": character.name,
+          ":idSwapi": character.idSwapi,
         },
       })
       .promise();
 
     if (result.Items && result.Items.length > 0) {
-      throw new Error("Character already exists");
+      console.log("Character already exists");
+      return result.Items[0] as Character;
     } else {
       await this.docClient
         .put({
@@ -51,7 +54,8 @@ export class CharacterRepositoryImplementation {
           Item: character,
         })
         .promise();
-      return character;
+
+      return character as Character;
     }
   }
 

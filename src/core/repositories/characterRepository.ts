@@ -10,7 +10,9 @@ export interface CharacterRepository {
   // from dynamodb
   getCharacter(id: string): Promise<CharactersSpanish>;
   getCharacters(): Promise<CharactersSpanish[]>;
-  createCharacterWithBiography(data: Character): Promise<CharactersSpanish>;
+  createCharacterWithBiography(
+    data: Character
+  ): Promise<Character>;
   updateCharacter(
     id: string,
     character: Partial<Character>

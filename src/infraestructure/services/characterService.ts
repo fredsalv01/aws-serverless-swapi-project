@@ -57,9 +57,16 @@ export class CharacterService implements CharacterRepository {
     return result.changeFieldsToSpanish();
   }
 
-  async createCharacterWithBiography(data: Character): Promise<CharactersSpanish> {
-    const result = await CharacterRepositoryImplementation.createCharacter(data);
-    return result.changeFieldsToSpanish();
+  async createCharacterWithBiography(data: Character): Promise<Character> {
+    try {
+      const newCharacter = new Character(data);
+      
+      const result = await CharacterRepositoryImplementation.createCharacter(newCharacter);
+      
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async updateCharacter(characterId: string, character: Character) {

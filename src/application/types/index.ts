@@ -17,6 +17,7 @@ export type getCharactersByPageSwapi = Readonly<{
 }>;
 
 export type CharactersSpanish = {
+  id: string | undefined;
   nombre: string;
   altura: string;
   masa: string;
@@ -34,4 +35,7 @@ export type CharactersSpanish = {
   editado: string;
   url: string;
   biografia: string;
+  idSwapi: string;
 };
+
+

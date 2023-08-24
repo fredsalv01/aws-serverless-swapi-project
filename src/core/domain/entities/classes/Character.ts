@@ -20,8 +20,9 @@ export class Character implements People {
   edited: string;
   url: string;
   biography: string;
+  idSwapi: string;
 
-  constructor(people: People) {
+  constructor(people: People, characterId?: string) {
     this.name = people.name;
     this.height = people.height;
     this.mass = people.mass;
@@ -39,13 +40,15 @@ export class Character implements People {
     this.edited = people.edited;
     this.url = people.url;
     this.biography = "";
+    this.characterId = characterId ?? "";
+    this.idSwapi = people.url.split("/", 6)[5];
   }
 
   public setBiografia(biography: string): void {
     if (biography === "") {
       this.biography =
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-    }else{
+    } else {
       this.biography = biography;
     }
   }
@@ -53,6 +56,7 @@ export class Character implements People {
   //change fields to spanish
   public changeFieldsToSpanish(): CharactersSpanish {
     return {
+      id: this.characterId,
       nombre: this.name,
       altura: this.height,
       masa: this.mass,
@@ -70,6 +74,7 @@ export class Character implements People {
       editado: this.edited,
       url: this.url,
       biografia: this.biography,
-    }
+      idSwapi: this.idSwapi,
+    };
   }
 }
