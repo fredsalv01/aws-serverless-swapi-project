@@ -3,6 +3,7 @@ import { CharacterRepository } from "../../core/repositories/characterRepository
 import CharacterRepositoryImplementation from "../../config/index";
 import httpConnector from "../../config/http-connector/http-connector";
 import {
+  CharactersSpanish,
   SwapiPeopleByPageResponse,
   getCharactersByPageSwapi,
 } from "../../application/types";
@@ -41,16 +42,24 @@ export class CharacterService implements CharacterRepository {
   }
 
   // this methods are comming from DynamoDB
-  async getCharacter(id: string): Promise<Character> {
-    return CharacterRepositoryImplementation.getCharacterById(id);
+  async getCharacters(): Promise<CharactersSpanish[]> {
+    try {
+      const result = await CharacterRepositoryImplementation.getCharacters();
+      console.log('result from api  ', result);
+      return result.map((character) => character.changeFieldsToSpanish());
+    } catch (error) {
+      return [];
+    }
   }
 
-  async getCharacters() {
-    return CharacterRepositoryImplementation.getCharacters();
+  async getCharacter(id: string): Promise<CharactersSpanish> {
+    const result = await CharacterRepositoryImplementation.getCharacterById(id);
+    return result.changeFieldsToSpanish();
   }
 
-  createCharacterWithBiography(data: Character): Promise<Character> {
-    return CharacterRepositoryImplementation.createCharacter(data);
+  async createCharacterWithBiography(data: Character): Promise<CharactersSpanish> {
+    const result = await CharacterRepositoryImplementation.createCharacter(data);
+    return result.changeFieldsToSpanish();
   }
 
   async updateCharacter(characterId: string, character: Character) {

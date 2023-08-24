@@ -25,6 +25,8 @@ export class CharacterRepositoryImplementation {
       })
       .promise();
 
+    if (!result.Items) return [];
+
     return result.Items as Character[];
   }
 
@@ -53,7 +55,10 @@ export class CharacterRepositoryImplementation {
     }
   }
 
-  async updateCharacter(characterId: string, partialCharacter: Partial<Character>): Promise<Character> {
+  async updateCharacter(
+    characterId: string,
+    partialCharacter: Partial<Character>
+  ): Promise<Character> {
     const updated = await this.docClient
       .update({
         TableName: this.tableName,
@@ -75,11 +80,11 @@ export class CharacterRepositoryImplementation {
   async deleteCharacter(characterId: string): Promise<boolean> {
     try {
       await this.docClient
-      .delete({
-        TableName: this.tableName,
-        Key: { characterId },
-      })
-      .promise();
+        .delete({
+          TableName: this.tableName,
+          Key: { characterId },
+        })
+        .promise();
       return true;
     } catch (error) {
       return false;

@@ -1,4 +1,4 @@
-service: hello
+service: swapi-api-serverless
 
 useDotenv: true
 
@@ -8,8 +8,6 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: "us-east-1"
   environment:
-    AWS_ACCESS_KEY_ID: AKIAZPCRHCAMQKMMIQFC
-    AWS_SECRET_ACCESS_KEY: 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
     CHARACTERS_TABLE: "characters"
   iamRoleStatements:
     - Effect: Allow
@@ -32,7 +30,7 @@ resources:
             AttributeType: S
         BillingMode: PAY_PER_REQUEST
         KeySchema:
-          - AttributeName: id
+          - AttributeName: characterId
             KeyType: HASH
         TableName: ${self:provider.environment.CHARACTERS_TABLE}
 
@@ -43,6 +41,12 @@ functions:
       - httpApi:
           method: GET
           path: /swapi/characters/{page}
+  getCharactersApi:
+    handler: src/application/controllers/character/api/getCharactersController.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /api/characters
 
 custom:
   esbuild:
@@ -53,5 +57,5 @@ custom:
 
 plugins:
   - serverless-esbuild
-  - serverless-dynamodb-local
   - serverless-offline
+  - serverless-dynamodb-local
