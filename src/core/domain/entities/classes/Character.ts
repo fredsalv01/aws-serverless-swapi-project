@@ -1,3 +1,4 @@
+import { CharactersSpanish } from "../../../../application/types";
 import { People } from "../interfaces/People";
 
 export class Character implements People {
@@ -46,6 +47,29 @@ export class Character implements People {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
     }else{
       this.biography = biography;
+    }
+  }
+
+  //change fields to spanish
+  public changeFieldsToSpanish(): CharactersSpanish {
+    return {
+      nombre: this.name,
+      altura: this.height,
+      masa: this.mass,
+      color_cabello: this.hair_color,
+      color_piel: this.skin_color,
+      color_ojo: this.eye_color,
+      fecha_nacimiento: this.birth_year,
+      genero: this.gender,
+      mundo_natal: this.homeworld,
+      peliculas: this.films,
+      especies: this.species,
+      vehiculos: this.vehicles,
+      naves_estelares: this.starships,
+      creado: this.created,
+      editado: this.edited,
+      url: this.url,
+      biografia: this.biography,
     }
   }
 }

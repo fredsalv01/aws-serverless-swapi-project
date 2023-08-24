@@ -6,11 +6,11 @@ provider:
   name: aws
   runtime: nodejs18.x
   stage: ${opt:stage, 'dev'}
-  region: 'us-east-1'
+  region: "us-east-1"
   environment:
     AWS_ACCESS_KEY_ID: AKIAZPCRHCAMQKMMIQFC
     AWS_SECRET_ACCESS_KEY: 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
-    CHARACTERS_TABLE: 'characters'
+    CHARACTERS_TABLE: "characters"
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -38,11 +38,11 @@ resources:
 
 functions:
   hello:
-    handler: src/hello.handler
+    handler: src/application/controllers/character/swapi/getCharactersController.handler
     events:
-      - httpApi: 
-          method: GET 
-          path: /hello
+      - httpApi:
+          method: GET
+          path: /swapi/characters/{page}
 
 custom:
   esbuild:
