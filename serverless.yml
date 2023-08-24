@@ -1,0 +1,57 @@
+service: hello
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: 'us-east-1'
+  environment:
+    AWS_ACCESS_KEY_ID: AKIAZPCRHCAMQKMMIQFC
+    AWS_SECRET_ACCESS_KEY: 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
+    CHARACTERS_TABLE: 'characters'
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CHARACTERS_TABLE}"
+
+resources:
+  Resources:
+    CharacterTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: characterId
+            AttributeType: S
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        TableName: ${self:provider.environment.CHARACTERS_TABLE}
+
+functions:
+  hello:
+    handler: src/hello.handler
+    events:
+      - httpApi: 
+          method: GET 
+          path: /hello
+
+custom:
+  esbuild:
+    bundle: true
+    minify: true
+    sourcemap: true
+    target: node18
+
+plugins:
+  - serverless-esbuild
+  - serverless-dynamodb-local
+  - serverless-offline
