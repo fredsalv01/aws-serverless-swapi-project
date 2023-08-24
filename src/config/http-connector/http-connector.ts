@@ -1,7 +1,8 @@
 import axios from "axios";
+import { BASE_URL_SWAPI } from "../constants";
 
 const httpConnector = axios.create({
-  baseURL: "https://swapi.py4e.com/api/",
+  baseURL: BASE_URL_SWAPI,
 });
 
 export default httpConnector;

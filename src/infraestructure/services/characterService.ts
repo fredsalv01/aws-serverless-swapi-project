@@ -15,16 +15,16 @@ export class CharacterService implements CharacterRepository {
         `people/?page=${page}`
       );
 
-      console.log("results Swapi", JSON.stringify(data.results));
-
       const characters: Character[] = data.results.map((character) => {
-        return new Character(character);
+        const characterItem = new Character(character);
+        characterItem.setBiografia("");
+        return characterItem
       });
 
       return {
         conteo: data.count,
-        siguiente: data.next,
-        anterior: data.previous,
+        siguiente: data.next ?? null,
+        anterior: data.previous ?? null,
         resultados: [
           ...characters.map((character) => character.changeFieldsToSpanish()),
         ],
