@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 
 
 export class Character implements People {
-  characterId: string;
+  characterId: string | undefined;
   name: string;
   height: string;
   mass: string;

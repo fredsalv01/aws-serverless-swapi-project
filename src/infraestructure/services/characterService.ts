@@ -19,6 +19,7 @@ export class CharacterService implements CharacterRepository {
       const characters: Character[] = data.results.map((character) => {
         const characterItem = new Character(character);
         characterItem.setBiografia("");
+        characterItem.characterId = undefined;
         return characterItem;
       });
 
