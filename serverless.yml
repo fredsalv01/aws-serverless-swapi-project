@@ -1,4 +1,4 @@
-service: swapi-api-serverless
+service: swapi-api-serverless-dynamodb
 
 useDotenv: true
 
@@ -9,16 +9,18 @@ provider:
   region: "us-east-1"
   environment:
     CHARACTERS_TABLE: "characters"
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CHARACTERS_TABLE}"
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CHARACTERS_TABLE}"
 
 resources:
   Resources:
