@@ -1,5 +1,7 @@
 import { CharactersSpanish } from "../../../../application/types";
 import { People } from "../interfaces/People";
+import { v4 as uuid } from "uuid";
+
 
 export class Character implements People {
   characterId: string;
@@ -76,5 +78,10 @@ export class Character implements People {
       biografia: this.biography,
       idSwapi: this.idSwapi,
     };
+  }
+
+  //create characterId
+  public generateCharacterId(): void {
+    this.characterId = uuid();
   }
 }

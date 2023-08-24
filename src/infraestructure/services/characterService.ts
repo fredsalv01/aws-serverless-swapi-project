@@ -19,7 +19,7 @@ export class CharacterService implements CharacterRepository {
       const characters: Character[] = data.results.map((character) => {
         const characterItem = new Character(character);
         characterItem.setBiografia("");
-        return characterItem
+        return characterItem;
       });
 
       return {
@@ -45,7 +45,7 @@ export class CharacterService implements CharacterRepository {
   async getCharacters(): Promise<CharactersSpanish[]> {
     try {
       const result = await CharacterRepositoryImplementation.getCharacters();
-      console.log('result from api  ', result);
+      console.log("result from api  ", result);
       return result.map((character) => character.changeFieldsToSpanish());
     } catch (error) {
       return [];
@@ -58,13 +58,17 @@ export class CharacterService implements CharacterRepository {
   }
 
   async createCharacterWithBiography(data: Character): Promise<Character> {
+    data.setBiografia("");
+    data.generateCharacterId();
+    console.log("data a enviar", data);
     try {
-      const newCharacter = new Character(data);
-      
-      const result = await CharacterRepositoryImplementation.createCharacter(newCharacter);
-      
-      return result;
+      const result = await CharacterRepositoryImplementation.createCharacter(
+        data
+      );
+      console.log("result from api  ", result);
+      return data;
     } catch (error) {
+      console.log(error);
       throw new Error(error);
     }
   }
