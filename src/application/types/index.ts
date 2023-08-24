@@ -1,11 +1,13 @@
 import { People } from "../../core/domain/entities/interfaces/People";
 
 export type SwapiPeopleByPageResponse = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: People[];
-}
+  data: {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: People[];
+  };
+};
 
 export type getCharactersByPageSwapi = Readonly<{
   conteo: number;
@@ -32,4 +34,4 @@ export type CharactersSpanish = {
   editado: string;
   url: string;
   biografia: string;
-}
+};

@@ -11,18 +11,20 @@ export class CharacterService implements CharacterRepository {
   // This method is comming from SWAPI
   async getCharactersByPage(page: number): Promise<getCharactersByPageSwapi> {
     try {
-      const result: SwapiPeopleByPageResponse = await httpConnector.get(
-        `people/?page=${page}&format=json`
+      const { data }: SwapiPeopleByPageResponse = await httpConnector.get(
+        `people/?page=${page}`
       );
 
-      const characters: Character[] = result.results.map((character) => {
+      console.log("results Swapi", JSON.stringify(data.results));
+
+      const characters: Character[] = data.results.map((character) => {
         return new Character(character);
       });
 
       return {
-        conteo: result.count,
-        siguiente: result.next,
-        anterior: result.previous,
+        conteo: data.count,
+        siguiente: data.next,
+        anterior: data.previous,
         resultados: [
           ...characters.map((character) => character.changeFieldsToSpanish()),
         ],

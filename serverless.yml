@@ -37,7 +37,7 @@ resources:
         TableName: ${self:provider.environment.CHARACTERS_TABLE}
 
 functions:
-  hello:
+  getCharactersSwapi:
     handler: src/application/controllers/character/swapi/getCharactersController.handler
     events:
       - httpApi:
