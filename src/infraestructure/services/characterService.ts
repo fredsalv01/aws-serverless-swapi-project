@@ -47,8 +47,14 @@ export class CharacterService implements CharacterRepository {
     try {
       const result = await CharacterRepositoryImplementation.getCharacters();
       console.log("result from api  ", result);
-      return result.map((character) => character.changeFieldsToSpanish());
+      const response = [
+        ...result.map((character) => {
+          return new Character(character).changeFieldsToSpanish();
+        }),
+      ];
+      return response;
     } catch (error) {
+      console.log(error);
       return [];
     }
   }

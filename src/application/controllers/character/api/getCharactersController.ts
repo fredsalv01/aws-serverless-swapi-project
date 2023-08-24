@@ -10,8 +10,6 @@ export const handler: Handler = async (
   const result: CharactersSpanish[] = await characterService.getCharacters();
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      result,
-    }),
+    body: JSON.stringify(result),
   };
 };

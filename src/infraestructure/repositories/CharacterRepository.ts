@@ -25,14 +25,14 @@ export class CharacterRepositoryImplementation {
       })
       .promise();
 
+    console.log('result in character repository', result);
+
     if (!result.Items) return [];
 
     return result.Items as Character[];
   }
 
-  async createCharacter(
-    character: Partial<Character>
-  ): Promise<Character> {
+  async createCharacter(character: Partial<Character>): Promise<Character> {
     //search if character name already exists
     const result = await this.docClient
       .scan({
