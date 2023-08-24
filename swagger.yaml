@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: API de Star Wars
+  version: 1.0.0
+paths:
+  /:
+    post:
+      summary: Crear una biografía
+      operationId: createBiography
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                characterId:
+                  type: string
+                  description: ID del personaje
+                description:
+                  type: string
+                  description: Descripción o biografía del personaje
+              example:
+                characterId: "4"
+                biography: "La biografía del personaje 4"
+      responses:
+        "201":
+          description: Biografía creada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  primary_key:
+                    type: string
+                    description: ID de la biografia en dynamoDB
+                  description:
+                    type: string
+                    description: Biografia del personaje
+                  characterId:
+                    type: string
+                    description: Descripción o biografía del personaje
+              example:
+                primary_key: "99f4e311-738d-4bae-b952-57b21000a307"
+                characterId: 3
+                biography: "La biografía del personaje 3"
+
+    get:
+      summary: Obtener información de la biografía y personajes
+      operationId: getBiography
+      responses:
+        "200":
+          description: Información de la biografía recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: ID del personaje
+                    nombre:
+                      type: string
+                      description: Nombre del personaje
+                    altura:
+                      type: string
+                      description: Altura del personaje
+                    peso:
+                      type: string
+                      description: Peso del personaje
+                    color_cabello:
+                      type: string
+                      description: Color de cabello del personaje
+                    color_piel:
+                      type: string
+                      description: Color de piel del personaje
+                    color_ojos:
+                      type: string
+                      description: Color de ojos del personaje
+                    fecha_nacimiento:
+                      type: string
+                      description: Año de nacimiento del personaje
+                    genero:
+                      type: string
+                      description: Género del personaje
+                    planetaNatal:
+                      type: string
+                      description: Planeta natal del personaje
+                    peliculas:
+                      type: string
+                      description: Peliculas en las que aprece el personaje
+                    especies:
+                      type: string
+                      description: Especie del personaje
+                    vehiculos:
+                      type: string
+                      description: Vehiculos que conduce el personaje
+                    navesEspaciales:
+                      type: string
+                      description: Naves espaciales que conduce el personaje
+                    biografia:
+                      type: string
+                      description: Descripción o biografía del personaje
+              example:
+                - id: 1
+                  nombre: "Luke Skywalker"
+                  altura: "172"
+                  peso: "77"
+                  color_cabello: "blond"
+                  color_piel: "fair"
+                  color_ojos: "blue"
+                  fecha_nacimiento: "19BBY"
+                  genero: "male"
+                  planetaNatal: "Tatooine"
+                  peliculas: [
+                      "A New Hope",
+                      "The Empire Strikes Back",
+                      "Return of the Jedi",
+                      "Revenge of the Sith",
+                      "The Force Awakens"
+                  ]
+                  especies: [
+                      "Human"
+                  ]
+                  vehiculos: [
+                      "https://swapi.py4e.com/api/vehicles/14/",
+                      "https://swapi.py4e.com/api/vehicles/30/"
+                  ]
+                  navesEspaciales: [
+                      "https://swapi.py4e.com/api/starships/12/",
+                      "https://swapi.py4e.com/api/starships/22/"
+                  ]
+                  biografia: "Luke Skywalker es un personaje ficticio y el protagonista​ de la trilogía original de la saga de ciencia ficción Star Wars.​ Procedente de la colonia de asteroides de Polis Massa, es el único hijo varón de Anakin Skywalker y la senadora Padmé Amidala."
+  /swapi/characters/{page}:
+    get:
+      summary: Obtener información de los personajes de SWAPI
+      operationId: getCharactersFromApi
+      parameters:
+        - name: page
+          in: path
+          required: true
+          description: Número de página de personajes de SWAPI
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Información de los personajes recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID del personaje
+                  nombre:
+                    type: string
+                    description: Nombre del personaje
+                  altura:
+                    type: string
+                    description: Altura del personaje
+                  peso:
+                    type: string
+                    description: Peso del personaje
+                  color_cabello:
+                    type: string
+                    description: Color de cabello del personaje
+                  color_piel:
+                    type: string
+                    description: Color de piel del personaje
+                  color_ojos:
+                    type: string
+                    description: Color de ojos del personaje
+                  fecha_nacimiento:
+                    type: string
+                    description: Año de nacimiento del personaje
+                  genero:
+                    type: string
+                    description: Género del personaje
+                  planetaNatal:
+                    type: string
+                    description: Planeta natal del personaje
+                  peliculas:
+                    type: string
+                    description: Peliculas en las que aprece el personaje
+                  especies:
+                    type: string
+                    description: Especie del personaje
+                  vehiculos:
+                    type: string
+                    description: Vehiculos que conduce el personaje
+                  navesEspaciales:
+                    type: string
+                    description: Naves espaciales que conduce el personaje
+              example:
+                id: "1"
+                nombre: "Luke Skywalker"
+                altura: "172"
+                peso: "77"
+                color_cabello: "blond"
+                color_piel: "fair"
+                color_ojos: "blue"
+                fecha_nacimiento: "19BBY"
+                genero: "male"
+                planetaNatal: "Tatooine"
+                peliculas: [
+                  "A New Hope",
+                  "The Empire Strikes Back",
+                  "Return of the Jedi",
+                  "Revenge of the Sith",
+                  "The Force Awakens"
+                ]
+                especies: [
+                  'Human'
+                ]
+                vehiculos: [
+                      "https://swapi.py4e.com/api/vehicles/14/",
+                      "https://swapi.py4e.com/api/vehicles/30/"
+                  ]
+                navesEspaciales: [
+                    "https://swapi.py4e.com/api/starships/12/",
+                    "https://swapi.py4e.com/api/starships/22/"
+                ]
