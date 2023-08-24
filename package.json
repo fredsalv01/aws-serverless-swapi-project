@@ -17,5 +17,10 @@
     "serverless-dynamodb-local": "^0.2.40",
     "serverless-esbuild": "^1.46.0",
     "serverless-offline": "^12.0.4"
+  },
+  "dependencies": {
+    "@aws-sdk/types": "^3.398.0",
+    "aws-sdk": "^2.1443.0",
+    "axios": "^1.4.0"
   }
 }
