@@ -13,6 +13,8 @@ export const handler: Handler = async (event): Promise<CharactersSpanish> => {
   const result: Character = await characterService.createCharacterWithBiography(
     data
   );
-  
-  return result.changeFieldsToSpanish();
+
+  const createResult = new Character(result, result.characterId);
+  createResult.setBiografia(result.biography);
+  return createResult.changeFieldsToSpanish();
 };

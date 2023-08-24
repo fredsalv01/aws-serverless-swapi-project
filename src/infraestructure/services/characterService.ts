@@ -75,7 +75,7 @@ export class CharacterService implements CharacterRepository {
         data
       );
       console.log("result from api  ", result);
-      return data;
+      return result;
     } catch (error) {
       console.log(error);
       throw new Error(error);

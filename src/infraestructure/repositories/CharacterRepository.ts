@@ -53,7 +53,7 @@ export class CharacterRepositoryImplementation {
           TableName: this.tableName,
           Item: character,
         })
-        .promise();
+        .promise()
 
       return character as Character;
     }
