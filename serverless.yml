@@ -49,6 +49,12 @@ functions:
       - httpApi:
           method: GET
           path: /api/characters
+  createCharacterApi:
+    handler: src/application/controllers/character/api/createCharacterController.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /api/characters
 
 custom:
   esbuild:
