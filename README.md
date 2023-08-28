@@ -31,7 +31,7 @@ endpoints:
   POST - https://d4kwn542q0.execute-api.us-east-1.amazonaws.com/api/characters
 ```
 
-Asegúrate de haber creado una tabla de DynamoDB con el nombre "BiographyTable". Puedes utilizar la consola de AWS o la CLI para crear la tabla.
+Asegúrate de haber creado una tabla de DynamoDB con el nombre "characters". Puedes utilizar la consola de AWS o la CLI para crear la tabla.
 
 ## Endpoints
 La API de Star Wars proporciona los siguientes endpoints:
