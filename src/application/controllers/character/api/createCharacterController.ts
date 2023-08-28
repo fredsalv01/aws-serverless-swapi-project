@@ -1,7 +1,6 @@
 import { APIGatewayProxyResult, Handler } from "aws-lambda";
 import { CharacterService } from "../../../../infraestructure/services/characterService";
 import { Character } from "../../../../core/domain/entities/classes/Character";
-import { CharactersSpanish } from "../../../types";
 
 const characterService = new CharacterService();
 
